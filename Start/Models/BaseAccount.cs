@@ -9,20 +9,30 @@ namespace Start.Models
     {
         public string Username { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }
+        public Role Role { get; set; }
         public string Email { get; set; }
         public DateTime AccountCreation { get; private set; }
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         public string NormalizedUsername { get; set; }
         public string NormalizedEmail { get; set; }
 
         public BaseAccount(long id, string username, string email, string password)
         {
-
+            this.UserId = id;
+            this.Username = username;
+            this.Email = email;
+            this.Password = password;
         }
 
         public BaseAccount(long id, string username, string email)
+        {
+            this.UserId = id;
+            this.Username = username;
+            this.Email = email;
+        }
+
+        public BaseAccount()
         {
 
         }

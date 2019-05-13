@@ -10,7 +10,7 @@ namespace Start.Models
         public String FullName { get; set; }
         public String Address { get; set; }
         public String ZipCode { get; set; }
-        public String Email { get; set; }
+
 
 
 

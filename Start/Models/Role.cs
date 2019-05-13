@@ -7,7 +7,13 @@ namespace Start.Models
 {
     public class Role
     {
-        public string Name { get; set; }
+        public string RoleName { get; set; }
         public DateTime CreationDate { get; set; }
+
+
+        public Role(string rolename)
+        {
+            this.RoleName = rolename;
+        }
     }
 }

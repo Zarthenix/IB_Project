@@ -46,13 +46,13 @@ namespace Start
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Role", connection);
+                    SqlCommand sqlCommand = new SqlCommand("SELECT * FROM IB_Role", connection);
                     using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
                     {
                         Role role = default(Role);
                         if (sqlDataReader.Read())
                         {
-                            role = new Role();
+                            role = new Role(role.RoleName);
                         }
                         return Task.FromResult<Role>(role);
                     }

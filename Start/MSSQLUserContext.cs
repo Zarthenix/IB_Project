@@ -18,8 +18,6 @@ namespace Start
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-
-
         /// <summary>
         /// Create a user in de DB. The userId (in de database) must be set to auto increment. 
         /// The password is hashed automatically.
@@ -36,11 +34,11 @@ namespace Start
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("INSERT INTO [User](username, email, password) OUTPUT INSERTED.ID VALUES (@username,@email,@password)", connection);
+                    SqlCommand sqlCommand = new SqlCommand("INSERT INTO [IB_User](username, email, password) OUTPUT INSERTED.USERID VALUES (@username,@email,@password)", connection);
                     sqlCommand.Parameters.AddWithValue("@username", user.Username);
                     sqlCommand.Parameters.AddWithValue("@email", user.Email);
                     sqlCommand.Parameters.AddWithValue("@password", user.Password);
-                    user.UserId = Convert.ToInt32(sqlCommand.ExecuteScalar());
+                    user.UserId = Convert.ToInt64(sqlCommand.ExecuteScalar());
                     return Task.FromResult<IdentityResult>(IdentityResult.Success);
                 }
             }
@@ -82,14 +80,14 @@ namespace Start
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                SqlCommand sqlCommand = new SqlCommand("SELECT id, username, email FROM [User] WHERE email=@email", connection);
+                SqlCommand sqlCommand = new SqlCommand("SELECT UserId, username, email FROM [IB_User] WHERE email=@email", connection);
                 sqlCommand.Parameters.AddWithValue("@email", normalizedEmail);
                 using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
                 {
                     BaseAccount user = default(BaseAccount);
                     if (sqlDataReader.Read())
                     {
-                        user = new BaseAccount(Convert.ToInt64(sqlDataReader["id"].ToString()), sqlDataReader["username"].ToString(), sqlDataReader["email"].ToString());
+                        user = new BaseAccount(Convert.ToInt64(sqlDataReader["userid"].ToString()), sqlDataReader["username"].ToString(), sqlDataReader["email"].ToString());
 
                     }
                     return Task.FromResult(user);
@@ -107,20 +105,19 @@ namespace Start
         {
             try
             {
-
                 cancellationToken.ThrowIfCancellationRequested();
 
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("SELECT id, username, email FROM [User] WHERE id=@id", connection);
+                    SqlCommand sqlCommand = new SqlCommand("SELECT UserId, username, email FROM [IB_User] WHERE UserId=@id", connection);
                     sqlCommand.Parameters.AddWithValue("@id", userId);
                     using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
                     {
                         BaseAccount user = default(BaseAccount);
                         if (sqlDataReader.Read())
                         {
-                            user = new BaseAccount(Convert.ToInt64(sqlDataReader["id"].ToString()), sqlDataReader["username"].ToString(), sqlDataReader["email"].ToString());
+                            user = new BaseAccount(Convert.ToInt64(sqlDataReader["userid"].ToString()), sqlDataReader["username"].ToString(), sqlDataReader["email"].ToString());
 
                         }
                         return Task.FromResult(user);
@@ -143,14 +140,14 @@ namespace Start
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("SELECT id, username, email, password FROM [User] WHERE email=@email", connection);
-                    sqlCommand.Parameters.AddWithValue("@email", normalizedUserName);
+                    SqlCommand sqlCommand = new SqlCommand("SELECT UserId, Username, Email, Password FROM [IB_User] WHERE username=@username", connection);
+                    sqlCommand.Parameters.AddWithValue("@username", normalizedUserName);
                     using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
                     {
                         BaseAccount user = default(BaseAccount);
                         if (sqlDataReader.Read())
                         {
-                            user = new BaseAccount(Convert.ToInt64(sqlDataReader["id"].ToString()), sqlDataReader["username"].ToString(), sqlDataReader["email"].ToString(), sqlDataReader["password"].ToString());
+                            user = new BaseAccount(Convert.ToInt64(sqlDataReader["userid"].ToString()), sqlDataReader["username"].ToString(), sqlDataReader["email"].ToString(), sqlDataReader["password"].ToString());
                         }
                         return Task.FromResult(user);
                     }
@@ -199,14 +196,14 @@ namespace Start
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("SELECT r.[name] FROM [Role] r INNER JOIN [UserRole] ur ON ur.[roleId] = r.id WHERE ur.userId = @userId", connection);
+                    SqlCommand sqlCommand = new SqlCommand("SELECT r.[RoleName] FROM [IB_Role] r INNER JOIN [IB_User_Role] ur ON ur.[FK_RoleName] = r.RoleName WHERE ur.FK_UserId = @userId", connection);
                     sqlCommand.Parameters.AddWithValue("@userId", user.UserId);
                     using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
                     {
                         IList<string> roles = new List<string>();
                         while (sqlDataReader.Read())
                         {
-                            roles.Add(sqlDataReader["Name"].ToString());
+                            roles.Add(sqlDataReader["RoleName"].ToString());
                         }
 
                         return Task.FromResult(roles);
@@ -251,13 +248,9 @@ namespace Start
                 {
                     connection.Open();
 
-                    SqlCommand sqlCommand = new SqlCommand("SELECT [id] FROM [Role] WHERE [name] = @normalizedName", connection);
-                    sqlCommand.Parameters.AddWithValue("@normalizedName", roleName.ToUpper());
-                    int? roleId = sqlCommand.ExecuteScalar() as int?;
-
-                    SqlCommand sqlCommandUserRole = new SqlCommand("SELECT COUNT(*) FROM [UserRole] WHERE [userId] = @userId AND [roleId] =@roleId", connection);
+                    SqlCommand sqlCommandUserRole = new SqlCommand("SELECT COUNT(*) FROM [IB_User_Role] WHERE [FK_UserId] = @userId AND [FK_RoleName] = @RoleName", connection);
                     sqlCommandUserRole.Parameters.AddWithValue("@userId", user.UserId);
-                    sqlCommandUserRole.Parameters.AddWithValue("@roleId", roleId);
+                    sqlCommandUserRole.Parameters.AddWithValue("@RoleName", roleName);
 
                     int? roleCount = sqlCommandUserRole.ExecuteScalar() as int?;
 
