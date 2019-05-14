@@ -52,7 +52,7 @@ namespace Start
                         Role role = default(Role);
                         if (sqlDataReader.Read())
                         {
-                            role = new Role(role.RoleName);
+                            role = new Role();
                         }
                         return Task.FromResult<Role>(role);
                     }

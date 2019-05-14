@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Start.Models;
@@ -36,24 +37,40 @@ namespace Start.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            if (HttpContext.User?.Identity.IsAuthenticated == true)
+            {
+                await signInManager.SignOutAsync();
+            }
+
+          return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password)
         {
-              if (username != null)
+            if (HttpContext.User?.Identity.IsAuthenticated == true)
+            {
+                await signInManager.SignOutAsync();
+            }
+            ViewData["msg"] = "";
+            if (username != null)
             {
                 var result = await signInManager.PasswordSignInAsync(username, password, false, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    if (HttpContext.User.IsInRole("admin"))
+                    if (HttpContext.User.IsInRole("Admin"))
                     {
                         ViewData["msg"] = "admin";
                         
                     }
-                    else if (HttpContext.User.IsInRole("employee"))
+                    else if (HttpContext.User.IsInRole("Employee"))
                     {
                         ViewData["msg"] = "employee";
                     }
-                    else
+                    else if (HttpContext.User.IsInRole("Customer"))
                     {
                         ViewData["msg"] = "customer";
                     }
@@ -63,7 +80,7 @@ namespace Start.Controllers
                     return RedirectToAction("Index");
                 }
             }
-              return View();
+            return View();
         }
     }
 }

@@ -92,7 +92,7 @@ Write(ViewData["msg"]);
                     ");
             EndContext();
             BeginContext(480, 985, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1872164f5b8744138b421cca79b17322", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "785f1587139c40be88210aa5925facdc", async() => {
                 BeginContext(521, 765, true);
                 WriteLiteral(@"
                         <fieldset>
@@ -110,7 +110,7 @@ Write(ViewData["msg"]);
                             ");
                 EndContext();
                 BeginContext(1286, 113, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "b2aaa078a73b4b548b0425c584b84be3", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "20dccccaca4c4c5a931693e8a7775b4e", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_FormActionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.FormActionTagHelper>();

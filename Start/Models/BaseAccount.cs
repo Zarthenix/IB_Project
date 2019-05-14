@@ -21,7 +21,9 @@ namespace Start.Models
         {
             this.UserId = id;
             this.Username = username;
+            this.NormalizedUsername = this.Username.ToUpper();
             this.Email = email;
+            this.NormalizedEmail = this.Email.ToUpper();
             this.Password = password;
         }
 

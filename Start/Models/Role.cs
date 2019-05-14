@@ -10,10 +10,5 @@ namespace Start.Models
         public string RoleName { get; set; }
         public DateTime CreationDate { get; set; }
 
-
-        public Role(string rolename)
-        {
-            this.RoleName = rolename;
-        }
     }
 }
