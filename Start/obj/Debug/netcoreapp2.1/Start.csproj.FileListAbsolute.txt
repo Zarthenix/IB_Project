@@ -92,3 +92,33 @@ C:\Users\User\OneDrive - Office 365 Fontys\IB\Supernet\IB_Project\Start\obj\Debu
 C:\Users\User\OneDrive - Office 365 Fontys\IB\Supernet\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.pdb
 C:\Users\User\OneDrive - Office 365 Fontys\IB\Supernet\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.csproj.CopyComplete
 C:\Users\User\OneDrive - Office 365 Fontys\IB\Supernet\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\Home\Login.g.cshtml.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\bin\Debug\netcoreapp2.1\Start.deps.json
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\bin\Debug\netcoreapp2.1\Start.runtimeconfig.json
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\bin\Debug\netcoreapp2.1\Start.runtimeconfig.dev.json
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\bin\Debug\netcoreapp2.1\Start.dll
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\bin\Debug\netcoreapp2.1\Start.pdb
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\bin\Debug\netcoreapp2.1\Start.Views.dll
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\bin\Debug\netcoreapp2.1\Start.Views.pdb
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.csprojAssemblyReference.cache
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.csproj.CoreCompileInputs.cache
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.RazorAssemblyInfo.cache
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.RazorAssemblyInfo.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.AssemblyInfoInputs.cache
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.AssemblyInfo.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.TagHelpers.input.cache
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.TagHelpers.output.cache
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.RazorCoreGenerate.cache
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\Home\Login.g.cshtml.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.RazorTargetAssemblyInfo.cache
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.RazorTargetAssemblyInfo.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.Views.pdb
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.dll
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.pdb
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.csproj.CopyComplete

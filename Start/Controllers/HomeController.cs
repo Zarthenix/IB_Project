@@ -34,7 +34,9 @@ namespace Start.Controllers
 
         public IActionResult Login()
         {
-            return View();
+            LoginViewModel lv = new LoginViewModel();
+
+            return View(lv);
         }
 
         [HttpGet]
@@ -45,42 +47,32 @@ namespace Start.Controllers
                 await signInManager.SignOutAsync();
             }
 
-          return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string username, string password)
+        public async Task<IActionResult> Login(LoginViewModel user)
         {
-            if (HttpContext.User?.Identity.IsAuthenticated == true)
+            if (ModelState.IsValid)
             {
-                await signInManager.SignOutAsync();
-            }
-            ViewData["msg"] = "";
-            if (username != null)
-            {
-                var result = await signInManager.PasswordSignInAsync(username, password, false, lockoutOnFailure: false);
+                var result = await signInManager.PasswordSignInAsync(user.Username, user.Password, user.Remember, lockoutOnFailure: false);
+                Debug.WriteLine(user.Remember);
                 if (result.Succeeded)
                 {
-                    if (HttpContext.User.IsInRole("Admin"))
-                    {
-                        ViewData["msg"] = "admin";
-                        
-                    }
-                    else if (HttpContext.User.IsInRole("Employee"))
-                    {
-                        ViewData["msg"] = "employee";
-                    }
-                    else if (HttpContext.User.IsInRole("Customer"))
-                    {
-                        ViewData["msg"] = "customer";
-                    }
+
                 }
                 else
                 {
                     return RedirectToAction("Index");
                 }
+
+                return RedirectToAction("Index");
             }
-            return View();
+          
+            else
+            {
+                return View();
+            }
         }
     }
 }

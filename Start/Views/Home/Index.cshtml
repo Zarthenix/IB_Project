@@ -1,4 +1,22 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@if (User.Identity.IsAuthenticated)
+{
+    if(User.IsInRole("Admin"))
+    {
+        <h2>You are an Admin.</h2>
+    }
+    if(User.IsInRole("Employee"))
+    {
+        <h2>You are an Employee.</h2>
+    }
+    if (User.IsInRole("Customer"))
+    {
+        <h2>You are an Customer.</h2>
+    }
+}
+
 
