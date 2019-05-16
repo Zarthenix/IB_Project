@@ -7,11 +7,11 @@ using Start.Classes;
 
 namespace Start.Context
 {
-    public class TestContext : IContext
+    public class TestContext : IAuthContext
     {
         private List<BaseAccount> accounts = new List<BaseAccount>();
 
-        public BaseAccount Login(string username, string password)
+        public Task<bool> Login(LoginViewModel loginViewModel)
         {
             return null;
         }

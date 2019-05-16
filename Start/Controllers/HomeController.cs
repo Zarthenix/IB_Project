@@ -2,23 +2,31 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Start.Context;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Start.Models;
+using Start.Repository;
 
 namespace Start.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserManager<BaseAccount> userManager;
-        private readonly SignInManager<BaseAccount> signInManager;
+        private readonly UserManager<BaseAccount> _userManager;
+        private readonly SignInManager<BaseAccount> _signInManager;
+        private IAuthContext authRepo;
+       
 
-        public HomeController(SignInManager<BaseAccount> signInManager, UserManager<BaseAccount> userManager)
+        public HomeController
+            (SignInManager<BaseAccount> signInManager, 
+            UserManager<BaseAccount> userManager, 
+            IAuthContext authContext)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this.authRepo = authContext;
         }
 
         public IActionResult Index()
@@ -44,7 +52,7 @@ namespace Start.Controllers
         {
             if (HttpContext.User?.Identity.IsAuthenticated == true)
             {
-                await signInManager.SignOutAsync();
+                await _signInManager.SignOutAsync();
             }
 
             return RedirectToAction("Index");
@@ -55,24 +63,18 @@ namespace Start.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(user.Username, user.Password, user.Remember, lockoutOnFailure: false);
-                Debug.WriteLine(user.Remember);
-                if (result.Succeeded)
-                {
+                bool result = await authRepo.Login(user);
 
-                }
-                else
+                if (result)
                 {
                     return RedirectToAction("Index");
                 }
-
-                return RedirectToAction("Index");
+                else
+                {
+                    return RedirectToAction("Login");
+                }
             }
-          
-            else
-            {
-                return View();
-            }
+            return RedirectToAction("Login", new LoginViewModel());
         }
     }
 }

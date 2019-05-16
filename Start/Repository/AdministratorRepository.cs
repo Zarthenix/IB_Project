@@ -9,9 +9,9 @@ namespace Start.Repository
 {
     public class AdministratorRepository
     {
-        IContext context;
+        IAuthContext context;
 
-        public AdministratorRepository(IContext context)
+        public AdministratorRepository(IAuthContext context)
         {
             this.context = context;
         }

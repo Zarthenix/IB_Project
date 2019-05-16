@@ -7,11 +7,9 @@ using Start.Classes;
 
 namespace Start.Context
 {
-    public interface IContext
+    public interface IAuthContext
     {
         void Register(BaseAccount account);
-        BaseAccount Login(string username, string password);
-        List<Product> GetProducts();
-
+        Task<bool> Login(LoginViewModel loginViewModel);
     }
 }

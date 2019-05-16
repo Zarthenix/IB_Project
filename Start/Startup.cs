@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Start.Context;
+using Start.Repository;
 
 namespace Start
 {
@@ -31,6 +33,7 @@ namespace Start
             services.AddTransient<IRoleStore<Role>, MSSQLRoleContext>();
             services.AddIdentity<BaseAccount, Role>().AddDefaultTokenProviders();
 
+            services.AddTransient<IAuthContext, MSSQLAuthContext>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
