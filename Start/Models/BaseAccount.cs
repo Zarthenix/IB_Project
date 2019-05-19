@@ -9,7 +9,7 @@ namespace Start.Models
     {
         public string Password { get; set; }
         public Role Role { get; set; }
-        public DateTime AccountCreation { get; private set; }
+        public DateTime CreationDateTime { get; set; }
         public long UserId { get; set; }
         public string NormalizedUsername { get; set; }
         public string NormalizedEmail { get; set; }

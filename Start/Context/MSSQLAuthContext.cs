@@ -22,15 +22,7 @@ namespace Start.Context
         public async Task<bool> Login(LoginViewModel loginViewModel)
         {
            var result = await signInManager.PasswordSignInAsync(loginViewModel.Username, loginViewModel.Password, loginViewModel.Remember, lockoutOnFailure: false);
-
-            if (result.Succeeded)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+           return result.Succeeded;
         }
         public void Register(BaseAccount account)
         {

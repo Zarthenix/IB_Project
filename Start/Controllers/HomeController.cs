@@ -16,17 +16,17 @@ namespace Start.Controllers
     {
         private readonly UserManager<BaseAccount> _userManager;
         private readonly SignInManager<BaseAccount> _signInManager;
-        private IAuthContext authRepo;
-       
+        private AuthRepository authRepo;
+
 
         public HomeController
-            (SignInManager<BaseAccount> signInManager, 
-            UserManager<BaseAccount> userManager, 
-            IAuthContext authContext)
+            (SignInManager<BaseAccount> signInManager,
+            UserManager<BaseAccount> userManager,
+            AuthRepository authRepo)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
-            this.authRepo = authContext;
+            this.authRepo = authRepo;
         }
 
         public IActionResult Index()
@@ -47,6 +47,25 @@ namespace Start.Controllers
             return View(lv);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel user)
+        {
+            IActionResult retval = null;
+
+            if (ModelState.IsValid)
+            {
+                bool result = await authRepo.Login(user);
+
+                if (result)
+                    retval = RedirectToAction("Index");
+                else
+                    retval = RedirectToAction("Login");
+            }
+            else retval = RedirectToAction("Login");
+
+            return retval;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
@@ -56,25 +75,6 @@ namespace Start.Controllers
             }
 
             return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel user)
-        {
-            if (ModelState.IsValid)
-            {
-                bool result = await authRepo.Login(user);
-
-                if (result)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return RedirectToAction("Login");
-                }
-            }
-            return RedirectToAction("Login", new LoginViewModel());
         }
     }
 }
