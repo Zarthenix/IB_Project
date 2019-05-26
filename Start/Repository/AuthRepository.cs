@@ -17,9 +17,9 @@ namespace Start.Repository
         }
 
 
-        public void Register(BaseAccount account)
+        public Task<bool> Register(RegisterViewModel user)
         {
-            context.Register(account);
+            return context.Register(user);
         }
 
         public Task<bool> Login(LoginViewModel loginViewModel)

@@ -9,7 +9,7 @@ namespace Start.Context
 {
     public interface IAuthContext
     {
-        void Register(BaseAccount account);
+        Task<bool> Register(RegisterViewModel account);
         Task<bool> Login(LoginViewModel loginViewModel);
     }
 }

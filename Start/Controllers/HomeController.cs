@@ -9,19 +9,20 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Start.Models;
 using Start.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Start.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserManager<BaseAccount> _userManager;
+        private readonly UserManager<RegisterViewModel> _userManager;
         private readonly SignInManager<BaseAccount> _signInManager;
         private AuthRepository authRepo;
 
 
         public HomeController
             (SignInManager<BaseAccount> signInManager,
-            UserManager<BaseAccount> userManager,
+            UserManager<RegisterViewModel> userManager,
             AuthRepository authRepo)
         {
             this._userManager = userManager;
@@ -40,6 +41,7 @@ namespace Start.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
             LoginViewModel lv = new LoginViewModel();
@@ -66,6 +68,7 @@ namespace Start.Controllers
             return retval;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
@@ -75,6 +78,36 @@ namespace Start.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            RegisterViewModel rv = new RegisterViewModel();
+
+            return View(rv);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel registerView)
+        {
+            _userManager.PasswordHasher.HashPassword(registerView, registerView.Password);
+            IActionResult retval = null;
+
+            if (ModelState.IsValid)
+            {
+                bool result = await authRepo.Register(registerView);
+
+                if (result)
+                {
+                   
+
+
+                    retval = RedirectToAction("Home", "Index");
+                }
+            }
+
+            return View();
         }
     }
 }

@@ -52,6 +52,11 @@ namespace Start.Models
             this.Email = email;
         }
 
+        public BaseAccount(string username, string email)
+        {
+
+        }
+
         public BaseAccount()
         {
 

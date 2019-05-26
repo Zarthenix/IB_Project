@@ -55,23 +55,5 @@ namespace Start.Models
         [Display(Name = "Town")]
         public string Town { get; set; }
 
-
-        //public Customer GetModel()
-        //{
-        //    Customer acc = new Customer
-        //    {
-        //        Username = this.Username,
-        //        Password = this.Password,
-        //        Email = this.Email,
-        //        FirstName = this.FirstName,
-        //        LastName = this.LastName,
-        //        Address = this.Address,
-        //        ZipCode = this.Zipcode,
-        //        Town = this.Town,
-        //        CreationDateTime = DateTime.Now
-        //    };
-
-        //    return acc;
-        //}
     }
 }
