@@ -11,14 +11,14 @@ namespace Start.Context
     {
         private List<BaseAccount> accounts = new List<BaseAccount>();
 
-        public Task<bool> Login(LoginViewModel loginViewModel)
+        public async Task<bool> Login(LoginViewModel loginViewModel)
         {
-            return null;
+            return false;
         }
 
-        public void Register(BaseAccount account)
+        public async Task<bool> Register(RegisterViewModel account, string Role)
         {
-
+            return false;
         }
 
         public List<Product> GetProducts()

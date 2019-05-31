@@ -28,35 +28,36 @@ namespace Start.Context
             var result = await signInManager.PasswordSignInAsync(loginViewModel.Username, loginViewModel.Password, loginViewModel.Remember, lockoutOnFailure: false);
             return result.Succeeded;
         }
-        public async Task<bool> Register(RegisterViewModel account)
+        public async Task<bool> Register(RegisterViewModel account, string role)
         {
-            var result = await userManager.CreateAsync(new BaseAccount(account.Username, account.Email), account.Password);
+            BaseAccount ba = account.ConvertToBaseAccount();
+            var result = await userManager.CreateAsync(ba, ba.Password);
             
             if (result.Succeeded)
             {
-                await RegisterDetails(account);
-            }
-        }
-
-        public async Task<bool> RegisterDetails(RegisterViewModel account)
-        {
-            try
-            {
-                using (var connection = new SqlConnection(_connectionString))
+                if (role == "Customer")
                 {
-                    connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("UPDATE IB_User SET )", connection);
-                    sqlCommand.Parameters.AddWithValue("@username", user.Username);
-                    sqlCommand.Parameters.AddWithValue("@email", user.Email);
-                    sqlCommand.Parameters.AddWithValue("@password", user.Password);
-                    return true;
+                    using (var connection = new SqlConnection(_connectionString))
+                    {
+                        connection.Open();
+                        SqlCommand sqlCommand = new SqlCommand("EXEC dbo.InsertCustomerData address=@address, zipcode=@zipcode, town=@town, firstname=@firstname, lastname=@lastname, username=@username", connection);
+                        sqlCommand.Parameters.AddWithValue("@address", account.Address);
+                        sqlCommand.Parameters.AddWithValue("@zipcode", account.Zipcode);
+                        sqlCommand.Parameters.AddWithValue("@town", account.Town);
+                        sqlCommand.Parameters.AddWithValue("@firstname", account.FirstName);
+                        sqlCommand.Parameters.AddWithValue("@lastname", account.LastName);
+                        sqlCommand.Parameters.AddWithValue("@username", account.Username);
+                        if ((long)sqlCommand.ExecuteScalar() == -1)
+                        {
+                            return false;
+                        }
+                        connection.Close();
+                        return true;
+                    }
                 }
+                else return true;
             }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            else return false;
         }
     }
 }

@@ -91,23 +91,30 @@ namespace Start.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerView)
         {
-            _userManager.PasswordHasher.HashPassword(registerView, registerView.Password);
-            IActionResult retval = null;
+            IActionResult retval = View();
 
             if (ModelState.IsValid)
             {
-                bool result = await authRepo.Register(registerView);
+                bool result = await authRepo.Register(registerView, "Customer");
 
                 if (result)
                 {
-                   
-
-
-                    retval = RedirectToAction("Home", "Index");
+                    try
+                    {
+                        await _signInManager.PasswordSignInAsync(registerView.Username, registerView.Password, false, false);
+                        retval = RedirectToAction("Home", "Index");
+                    }
+                    catch (Exception)
+                    {
+                        retval = RedirectToAction("Home", "Login");
+                    }
+                }
+                else
+                {
+                    ViewData["Error"] = "An error has occured.";
                 }
             }
-
-            return View();
+            return retval;
         }
     }
 }

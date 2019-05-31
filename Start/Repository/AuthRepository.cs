@@ -17,9 +17,9 @@ namespace Start.Repository
         }
 
 
-        public Task<bool> Register(RegisterViewModel user)
+        public Task<bool> Register(RegisterViewModel user, string Role)
         {
-            return context.Register(user);
+            return context.Register(user, Role);
         }
 
         public Task<bool> Login(LoginViewModel loginViewModel)

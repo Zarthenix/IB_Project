@@ -34,11 +34,17 @@ namespace Start
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("INSERT INTO [IB_User](username, email, password) OUTPUT INSERTED.USERID VALUES (@username,@email,@password)", connection);
+                    SqlCommand sqlCommand = new SqlCommand("EXEC dbo.RegisterUser username = @username, password = @password, email = @email, creationdatetime = @creationdate", connection);
                     sqlCommand.Parameters.AddWithValue("@username", user.Username);
                     sqlCommand.Parameters.AddWithValue("@email", user.Email);
                     sqlCommand.Parameters.AddWithValue("@password", user.Password);
+                    sqlCommand.Parameters.AddWithValue("@creationdate", user.CreationDateTime);
                     user.UserId = Convert.ToInt64(sqlCommand.ExecuteScalar());
+                    if (user.UserId == -1)
+                    {
+                        throw new Exception("Database error.");
+                    }
+                    connection.Close();
                     return Task.FromResult<IdentityResult>(IdentityResult.Success);
                 }
             }
@@ -48,6 +54,8 @@ namespace Start
                 throw;
             }
         }
+
+
 
 
         /// <summary>
@@ -90,6 +98,7 @@ namespace Start
                         user = new BaseAccount(Convert.ToInt64(sqlDataReader["userid"].ToString()), sqlDataReader["username"].ToString(), sqlDataReader["email"].ToString());
 
                     }
+                    connection.Close();
                     return Task.FromResult(user);
                 }
             }
@@ -120,6 +129,7 @@ namespace Start
                             user = new BaseAccount(Convert.ToInt64(sqlDataReader["userid"].ToString()), sqlDataReader["username"].ToString(), sqlDataReader["email"].ToString());
 
                         }
+                        connection.Close();
                         return Task.FromResult(user);
                     }
                 }
@@ -149,6 +159,7 @@ namespace Start
                         {
                             user = new BaseAccount(Convert.ToInt64(sqlDataReader["userid"].ToString()), sqlDataReader["username"].ToString(), sqlDataReader["email"].ToString(), sqlDataReader["password"].ToString());
                         }
+                        connection.Close();
                         return Task.FromResult(user);
                     }
                 }
@@ -205,7 +216,7 @@ namespace Start
                         {
                             roles.Add(sqlDataReader["RoleName"].ToString());
                         }
-
+                        connection.Close();
                         return Task.FromResult(roles);
                     }
                 }
@@ -253,7 +264,7 @@ namespace Start
                     sqlCommandUserRole.Parameters.AddWithValue("@RoleName", roleName);
 
                     int? roleCount = sqlCommandUserRole.ExecuteScalar() as int?;
-
+                    connection.Close();
                     return Task.FromResult(roleCount > 0);
 
                 }

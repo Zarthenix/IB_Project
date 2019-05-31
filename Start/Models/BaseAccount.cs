@@ -9,7 +9,7 @@ namespace Start.Models
     {
         public string Password { get; set; }
         public Role Role { get; set; }
-        public DateTime CreationDateTime { get; set; }
+        public DateTime CreationDateTime { get; private set; }
         public long UserId { get; set; }
         public string NormalizedUsername { get; set; }
         public string NormalizedEmail { get; set; }
@@ -43,6 +43,7 @@ namespace Start.Models
             this.Username = username;
             this.Email = email;
             this.Password = password;
+            CreationDateTime = DateTime.Now;
         }
 
         public BaseAccount(long id, string username, string email)
@@ -50,16 +51,17 @@ namespace Start.Models
             this.UserId = id;
             this.Username = username;
             this.Email = email;
+            CreationDateTime = DateTime.Now;
         }
 
         public BaseAccount(string username, string email)
         {
-
+            CreationDateTime = DateTime.Now;
         }
 
         public BaseAccount()
         {
-
+            CreationDateTime = DateTime.Now;
         }
     }
 }

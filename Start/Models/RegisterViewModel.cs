@@ -55,5 +55,17 @@ namespace Start.Models
         [Display(Name = "Town")]
         public string Town { get; set; }
 
+
+        public BaseAccount ConvertToBaseAccount()
+        {
+            BaseAccount ba = new BaseAccount()
+            {
+                Username = this.Username,
+                Password = this.Password,
+                Email = this.Email
+            };
+
+            return ba;
+        }
     }
 }
