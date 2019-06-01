@@ -124,3 +124,7 @@ C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Sta
 C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Start.csproj.CopyComplete
 C:\Users\User\OneDrive - Office 365 Fontys\IB\Supernet\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\_CatalogProduct.g.cshtml.cs
 C:\Users\User\OneDrive - Office 365 Fontys\IB\Supernet\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\Product\Details.g.cshtml.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\Product\Create.g.cshtml.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\Product\Details.g.cshtml.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\_CatalogProduct.g.cshtml.cs
+C:\Users\Michael\Desktop\IB Project\IB_Project\Start\obj\Debug\netcoreapp2.1\Razor\Views\Home\Register.g.cshtml.cs

@@ -9,7 +9,7 @@
 
 <div class="container">
     <div class="row vertical-offset-100">
-        <div class="col-md-4 col-md-offset-4">
+        <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Please sign in</h3>
@@ -24,14 +24,13 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="Password"></label>
-                                <input asp-for="Password" class="form-control" name="password" type="password" value="Test123!">
+                                <input asp-for="Password" class="form-control" name="password" type="password" value="Test123!" title="Enter a password here">
                                 <span asp-validation-for="Password"></span>
                             </div>
-                            <div class="checkbox">@Html.EditorFor(x => x.Remember) @Html.DisplayNameFor(m => m.Remember)</div>
-                                
-
-
-
+                            <div class="form-group form-check">
+                            <div class="form-check-input">@Html.EditorFor(x => x.Remember)</div>
+                            <label asp-for="Remember" class="col-md-4"></label>
+                            </div>
                             <input class="btn btn-lg btn-success btn-block" type="submit" value="Login" asp-action="Login" formmethod="post">
                         </fieldset>
                     </form>

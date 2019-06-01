@@ -7,6 +7,7 @@ using Start.Classes;
 using Microsoft.AspNetCore.Identity;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
 
 namespace Start.Context
 {
@@ -22,7 +23,7 @@ namespace Start.Context
             this.signInManager = signInManager;
             this.userManager = userManager;
         }
-
+        
         public async Task<bool> Login(LoginViewModel loginViewModel)
         {
             var result = await signInManager.PasswordSignInAsync(loginViewModel.Username, loginViewModel.Password, loginViewModel.Remember, lockoutOnFailure: false);
@@ -40,7 +41,7 @@ namespace Start.Context
                     using (var connection = new SqlConnection(_connectionString))
                     {
                         connection.Open();
-                        SqlCommand sqlCommand = new SqlCommand("EXEC dbo.InsertCustomerData address=@address, zipcode=@zipcode, town=@town, firstname=@firstname, lastname=@lastname, username=@username", connection);
+                        SqlCommand sqlCommand = new SqlCommand("EXEC dbo.UpdateCustomerData address=@address, zipcode=@zipcode, town=@town, firstname=@firstname, lastname=@lastname, username=@username", connection);
                         sqlCommand.Parameters.AddWithValue("@address", account.Address);
                         sqlCommand.Parameters.AddWithValue("@zipcode", account.Zipcode);
                         sqlCommand.Parameters.AddWithValue("@town", account.Town);

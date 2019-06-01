@@ -20,6 +20,12 @@ namespace Start.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        [Required]
+        [Compare("Password", ErrorMessage = "The passwords don't match. Try again.")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
+        public string ConfirmPassword { get; set; }
+
         [Required(ErrorMessage = "An e-mailaddress is required.")]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "E-mail")]

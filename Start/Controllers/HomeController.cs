@@ -15,14 +15,14 @@ namespace Start.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserManager<RegisterViewModel> _userManager;
+        private readonly UserManager<BaseAccount> _userManager;
         private readonly SignInManager<BaseAccount> _signInManager;
         private AuthRepository authRepo;
 
 
         public HomeController
             (SignInManager<BaseAccount> signInManager,
-            UserManager<RegisterViewModel> userManager,
+            UserManager<BaseAccount> userManager,
             AuthRepository authRepo)
         {
             this._userManager = userManager;

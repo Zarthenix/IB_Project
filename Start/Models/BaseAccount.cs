@@ -13,28 +13,8 @@ namespace Start.Models
         public long UserId { get; set; }
         public string NormalizedUsername { get; set; }
         public string NormalizedEmail { get; set; }
-
-        private string _username;
-        public string Username
-        {
-            get { return _username; }
-            set
-            {
-                NormalizedUsername = value.ToUpper();
-                _username = value;
-            }
-        }
-
-        private string _email;
-        public string Email
-        {
-            get { return _email; }
-            set
-            {
-                NormalizedEmail = value.ToUpper();
-                _email = value;
-            }
-        }
+        public string Username { get; set; }
+        public string Email { get; set; }
 
 
         public BaseAccount(long id, string username, string email, string password)
@@ -43,7 +23,6 @@ namespace Start.Models
             this.Username = username;
             this.Email = email;
             this.Password = password;
-            CreationDateTime = DateTime.Now;
         }
 
         public BaseAccount(long id, string username, string email)
@@ -51,17 +30,14 @@ namespace Start.Models
             this.UserId = id;
             this.Username = username;
             this.Email = email;
-            CreationDateTime = DateTime.Now;
         }
 
         public BaseAccount(string username, string email)
         {
-            CreationDateTime = DateTime.Now;
         }
 
         public BaseAccount()
         {
-            CreationDateTime = DateTime.Now;
         }
     }
 }
