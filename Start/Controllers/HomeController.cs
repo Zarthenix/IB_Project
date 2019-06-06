@@ -102,11 +102,11 @@ namespace Start.Controllers
                     try
                     {
                         await _signInManager.PasswordSignInAsync(registerView.Username, registerView.Password, false, false);
-                        retval = RedirectToAction("Home", "Index");
+                        retval = RedirectToAction("Index", "Home");
                     }
                     catch (Exception)
                     {
-                        retval = RedirectToAction("Home", "Login");
+                        retval = RedirectToAction("Login", "Home");
                     }
                 }
                 else

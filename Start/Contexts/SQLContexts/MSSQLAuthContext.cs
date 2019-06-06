@@ -41,14 +41,16 @@ namespace Start.Context
                     using (var connection = new SqlConnection(_connectionString))
                     {
                         connection.Open();
-                        SqlCommand sqlCommand = new SqlCommand("EXEC dbo.UpdateCustomerData address=@address, zipcode=@zipcode, town=@town, firstname=@firstname, lastname=@lastname, username=@username", connection);
+                        SqlCommand sqlCommand = new SqlCommand("dbo.UpdateCustomerData", connection);
+                        sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                         sqlCommand.Parameters.AddWithValue("@address", account.Address);
                         sqlCommand.Parameters.AddWithValue("@zipcode", account.Zipcode);
                         sqlCommand.Parameters.AddWithValue("@town", account.Town);
                         sqlCommand.Parameters.AddWithValue("@firstname", account.FirstName);
                         sqlCommand.Parameters.AddWithValue("@lastname", account.LastName);
                         sqlCommand.Parameters.AddWithValue("@username", account.Username);
-                        if ((long)sqlCommand.ExecuteScalar() == -1)
+                        int retAffectedRows = sqlCommand.ExecuteNonQuery();
+                        if (retAffectedRows == -1)
                         {
                             return false;
                         }

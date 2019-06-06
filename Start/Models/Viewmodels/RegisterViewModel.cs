@@ -46,7 +46,7 @@ namespace Start.Models
         [Required(ErrorMessage = "Please enter your address.")]
         [StringLength(75)]
         [DataType(DataType.Text)]
-        [Display(Name = "Address (including housenumber")]
+        [Display(Name = "Address (including housenumber)")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Please enter your Zipcode")]

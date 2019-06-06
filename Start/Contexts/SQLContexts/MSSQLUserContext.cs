@@ -34,16 +34,17 @@ namespace Start
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("EXEC dbo.RegisterUser username = @username, password = @password, email = @email, creationdatetime = @creationdate", connection);
+                    SqlCommand sqlCommand = new SqlCommand("dbo.RegisterUser", connection);
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                     sqlCommand.Parameters.AddWithValue("@username", user.Username);
-                    sqlCommand.Parameters.AddWithValue("@email", user.Email);
                     sqlCommand.Parameters.AddWithValue("@password", user.Password);
-                    sqlCommand.Parameters.AddWithValue("@creationdate", user.CreationDateTime);
+                    sqlCommand.Parameters.AddWithValue("@email", user.Email);
                     user.UserId = Convert.ToInt64(sqlCommand.ExecuteScalar());
                     if (user.UserId == -1)
                     {
                         throw new Exception("Database error.");
                     }
+                    
                     connection.Close();
                     return Task.FromResult<IdentityResult>(IdentityResult.Success);
                 }
