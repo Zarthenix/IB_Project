@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Start.Classes;
 
 namespace Start.Models
 {
-    public class ProductViewModel
+    public class CatalogProductViewModel
     {
         [Required]
         [DataType(DataType.Text)]
@@ -20,8 +21,10 @@ namespace Start.Models
         [DataType(DataType.Currency)]
         public decimal ProductPrice { get; set; }
         public int ProductCalories { get; set; }
-        [DataType(DataType.ImageUrl)]
-        public string ProductImg { get; set; }
+        public byte[] ProductImg { get; set; }
+        [Required]
+        [DataType(DataType.Text)]
+        public List<ProductCategory> ProductCategories { get; set; }
 
     }
 }

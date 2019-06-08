@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Start.Context;
 using Start.Repository;
+using Start.Contexts.SQLContexts;
+using Start.Contexts.Interfaces;
 
 namespace Start
 {
@@ -34,8 +36,10 @@ namespace Start
             services.AddIdentity<BaseAccount, Role>().AddDefaultTokenProviders();
 
             services.AddTransient<IAuthContext, MSSQLAuthContext>();
+            services.AddTransient<IProductContext, MSSQLProductContext>();
 
             services.AddScoped<AuthRepository>();
+            services.AddScoped<ProductRepository>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
