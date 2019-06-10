@@ -8,6 +8,7 @@ namespace Start.Contexts.Interfaces
 {
     public interface IProductContext
     {
-        long Create(Product product);
+        Product Create(Product product);
+        Product GetById(long productId);
     }
 }

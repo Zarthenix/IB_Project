@@ -19,7 +19,7 @@ namespace Start.Contexts.SQLContexts
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public long Create(Product product)
+        public Product Create(Product product)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -33,7 +33,45 @@ namespace Start.Contexts.SQLContexts
                 sqlCommand.Parameters.AddWithValue("@calories", product.ProductCalories);
                 sqlCommand.Parameters.Add("@img", SqlDbType.VarBinary).Value = product.ProductImage;
                 sqlCommand.Parameters.AddWithValue("@active", Convert.ToByte(product.IsAvailable));
-                return (long)sqlCommand.ExecuteScalar();
+
+                product.ProductId = (long)sqlCommand.ExecuteScalar();
+
+                connection.Close();
+                return product;
+            }
+        }
+
+        public Product GetById(long productId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                SqlCommand sqlCommand = new SqlCommand("SELECT * FROM v_Products(@productid)", connection);
+                sqlCommand.Parameters.AddWithValue("@productid", productId);
+
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    Product prod = new Product();
+                    while (reader.Read())
+                    {
+                        prod.ProductId = (long)reader["ProductId"];
+                        prod.ProductName = reader["ProductName"].ToString();
+                        prod.ProductCalories = (int)reader["ProductCalories"];
+                        prod.ProductDescription = reader["ProductDescription"].ToString();
+                        prod.ProductPrice = (decimal)reader["ProductPrice"];
+                        prod.ProductImage = (byte[])reader["ProductImg"]; 
+                    }
+                    connection.Close();
+                    reader.Close();
+                    return prod;
+                }
+                else
+                {
+                    return default(Product);
+                }
             }
         }
     }

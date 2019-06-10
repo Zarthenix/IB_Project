@@ -16,9 +16,11 @@ namespace Start.Repository
             this.context = context;
         }
 
-        public long Create (Product product)
+        public Product Create (Product product)
         {
             return context.Create(product);
         }
+
+        
     }
 }

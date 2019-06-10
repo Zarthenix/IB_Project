@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Start.Classes;
@@ -27,14 +28,20 @@ namespace Start.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        
+        [Authorize(Roles = "Employee, Admin")]
+        [HttpGet]
         public IActionResult Create()
         {
             return View(new CreateProductViewModel {IsActive = true});
         }
 
+        [Authorize(Roles = "Employee, Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateProductViewModel pvm)
         {
+            IActionResult retval = View(pvm);
+
             if (ModelState.IsValid)
             {
                 Product product = pvm.ConvertToProduct();
@@ -43,22 +50,29 @@ namespace Start.Controllers
                 {
                     await pvm.Image.CopyToAsync(memoryStream);
                     product.ProductImage = memoryStream.ToArray();
-
                 }
 
-                long productId = productRepository.Create(product);
+                product = productRepository.Create(product);
 
-                if (productId == -1)
+                if (product.ProductId == -1)
                 {
-                    return RedirectToAction("Login", "Home");
+                    retval = RedirectToAction("Login", "Home");
                 }
                 else
                 {
-                    return RedirectToAction("Details", "Product", new { id = productId });
+                    retval = RedirectToAction("Details", "Product", product);
                 }
             }
+            return retval;
+        }
 
-            return View(pvm);
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Details(Product product)
+        {
+
+
+            return View();
         }
     }
 }
