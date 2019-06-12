@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Start.Models;
 using Start.Repository;
 using Microsoft.AspNetCore.Authorization;
+using Start.Classes;
 
 namespace Start.Controllers
 {
@@ -18,21 +19,36 @@ namespace Start.Controllers
         private readonly UserManager<BaseAccount> _userManager;
         private readonly SignInManager<BaseAccount> _signInManager;
         private AuthRepository authRepo;
+        private ProductRepository prodRepo;
 
 
         public HomeController
             (SignInManager<BaseAccount> signInManager,
             UserManager<BaseAccount> userManager,
-            AuthRepository authRepo)
+            AuthRepository authRepo,
+            ProductRepository prodRepo)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this.authRepo = authRepo;
+            this.prodRepo = prodRepo;
         }
 
         public IActionResult Index()
         {
-            return View();
+            List<Product> products = new List<Product>();
+            products = prodRepo.GetAll();
+
+            List<CatalogProductViewModel> cpvmList = new List<CatalogProductViewModel>();
+            foreach (Product p in products)
+            {
+                CatalogProductViewModel cpvm = new CatalogProductViewModel();
+                cpvm.ConvertToViewModel(p);
+                cpvm.ProductImg = Convert.ToBase64String(p.ProductImage);
+                cpvmList.Add(cpvm);
+            }
+
+            return View(cpvmList);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -16,11 +16,19 @@ namespace Start.Repository
             this.context = context;
         }
 
-        public Product Create (Product product)
+        public Product Create(Product product)
         {
             return context.Create(product);
         }
 
-        
+        public Product GetById(long id)
+        {
+            return context.GetById(id);
+        }
+
+        public List<Product> GetAll()
+        {
+            return context.GetAll();
+        }
     }
 }

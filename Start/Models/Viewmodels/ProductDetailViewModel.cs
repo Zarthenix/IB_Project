@@ -13,7 +13,7 @@ namespace Start.Models.Viewmodels
         public int Calories { get; set; }
         public string Description { get; set; }
         public byte[] Image { get; set; }
-        public List<ProductCategory> Categories { get; set; }
+        public List<string> Categories { get; set; }
 
         public ProductDetailViewModel(Product prod)
         {

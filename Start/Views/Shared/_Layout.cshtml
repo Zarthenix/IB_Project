@@ -12,16 +12,21 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/layout.css">
+        <link rel="stylesheet" href="~/css/custom_css.css">
+        <script src="https://kit.fontawesome.com/590950580f.js"></script>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.8.5/jquery-ui.min.js" integrity="sha256-fOse6WapxTrUSJOJICXXYwHRJOPa6C1OUQXi7C9Ddy8=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
         <script src="~/js/indexscript.js"></script>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+        asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
@@ -29,35 +34,38 @@
     <header>
         <div id="logo" tag="logo"></div>
 
+        @{
+            var q = Context.Session.GetComplexData<List<CartProduct>>("userCart");
+            var x = 0;
+
+            if (q != null)
+            {
+                x = q.Sum(c => c.Quantity);
+            }
+        }
 
         <div class="topnav" id="snetTopnav">
-            <a href="#home">Catalog</a>
-            <a href="#profile">Profile</a>
+            <a asp-controller="home" asp-action="Index" method="get">Catalog</a>
+
             <a href="#contact">Support</a>
             @if (User.Identity.IsAuthenticated)
             {
-            <a asp-controller="home" asp-action="Logout" class="right" method="get">Logout</a>
+                <a href="#profile">Profile</a>
+                <a asp-controller="home" asp-action="Logout" class="right" method="get">Logout</a>
             }
-            else {
-            <a asp-controller="home" asp-action="Login" class="right">Login</a>
+            else
+            {
+                <a asp-controller="home" asp-action="Login" class="right">Login</a>
             }
-            
-            <a href="#cart" class="right">Shopping Cart</a>
+
+            <a href="@Url.Action("Index", "Cart")" class="right" id="shoppingCart"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart <span class="badge" style="background-color:#ed8d17;font-family: Magneto;font-size: 14px;font-weight: bold;">@x</span></a>
             <a href="javascript:void(0);" class="icon" onclick="dropDownMenu()">
                 <i class="fa fa-bars"></i>
             </a>
         </div>
 
     </header>
-
-
-
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2019 - Start</p>
-        </footer>
-
-
+    @RenderBody()
+    @RenderSection("scripts", required: false)
 </body>
 </html>

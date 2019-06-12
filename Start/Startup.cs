@@ -47,8 +47,14 @@ namespace Start
                 //options.CheckConsentNeeded = context => true;
                 //options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-
+            services.AddDistributedMemoryCache();
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -65,9 +71,10 @@ namespace Start
                 app.UseHsts();
             }
 
+           
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            app.UseSession();
             
             app.UseAuthentication();
 

@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.2": {
+      "jQuery/1.8.0": {
+        "type": "package"
+      },
+      "Microsoft.AspNetCore.Cryptography.Internal/2.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Razor.Language/2.1.1": {
         "type": "package",
         "compile": {
@@ -126,6 +138,21 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.jQuery.Unobtrusive.Ajax/3.2.6": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "1.8.0"
+        }
+      },
+      "Microsoft.NET.Sdk.Razor/2.2.0": {
+        "type": "package",
+        "build": {
+          "build/netstandard2.0/_._": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/_._": {}
         }
       },
       "Microsoft.NETCore.App/2.1.0": {
@@ -1799,8 +1826,11 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.Internal": "2.2.0",
+          "Microsoft.NET.Sdk.Razor": "2.2.0",
           "Microsoft.NETCore.App": "2.1.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.9"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.9",
+          "Microsoft.jQuery.Unobtrusive.Ajax": "3.2.6"
         },
         "compile": {
           "bin/placeholder/Start.dll": {}
@@ -1812,6 +1842,38 @@
     }
   },
   "libraries": {
+    "jQuery/1.8.0": {
+      "sha512": "laDFQRJrIRHT0Z0GVYklMt3bE0iu0MZFJwHwg21kt3SHb7Bj8TdNiM3K+ZdK1DzB8ZxKy8z7NkJvwMas+dmHBw==",
+      "type": "package",
+      "path": "jquery/1.8.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Scripts/jquery-1.8.0-vsdoc.js",
+        "Content/Scripts/jquery-1.8.0.js",
+        "Content/Scripts/jquery-1.8.0.min.js",
+        "Tools/common.ps1",
+        "Tools/install.ps1",
+        "Tools/jquery-1.8.0.intellisense.js",
+        "Tools/uninstall.ps1",
+        "jquery.1.8.0.nupkg.sha512",
+        "jquery.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Cryptography.Internal/2.2.0": {
+      "sha512": "GXmMD8/vuTLPLvKzKEPz/4vapC5e0cwx1tUVd83ePRyWF9CCrn/pg4/1I+tGkQqFLPvi3nlI2QtPtC6MQN8Nww==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.cryptography.internal/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.xml",
+        "microsoft.aspnetcore.cryptography.internal.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.cryptography.internal.nuspec"
+      ]
+    },
     "Microsoft.AspNetCore.Razor.Language/2.1.1": {
       "sha512": "NbDH62ez/AZzSAGZuy6dIMBDMV0HmBlbWJqPw/ZX+Ooz8x1oZq6i/LbPbt34CQlAkrm7lnAlWZq+cE7dzkvGiQ==",
       "type": "package",
@@ -1935,6 +1997,48 @@
         "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
         "microsoft.extensions.dependencyinjection.abstractions.2.1.1.nupkg.sha512",
         "microsoft.extensions.dependencyinjection.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.jQuery.Unobtrusive.Ajax/3.2.6": {
+      "sha512": "udg7ZBszgqxloQ+ShJRONKQAzPnJIlUhKZB+AIvZdKh7CDc5Nms69T9X0hN5i+NqMmQE6njkzdCcEb16lPdJTw==",
+      "type": "package",
+      "path": "microsoft.jquery.unobtrusive.ajax/3.2.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Scripts/jquery.unobtrusive-ajax.js",
+        "Content/Scripts/jquery.unobtrusive-ajax.min.js",
+        "microsoft.jquery.unobtrusive.ajax.3.2.6.nupkg.sha512",
+        "microsoft.jquery.unobtrusive.ajax.nuspec"
+      ]
+    },
+    "Microsoft.NET.Sdk.Razor/2.2.0": {
+      "sha512": "qAauNXVoCM7P5jcK5L7Ajddlmsr1kk1M+4+pA1EDWGHV6bRxn/E/tykk7/smAd8gDa1xlWt1vSJ6Ilrbc9FhGg==",
+      "type": "package",
+      "path": "microsoft.net.sdk.razor/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Sdk/Sdk.props",
+        "Sdk/Sdk.targets",
+        "build/netstandard2.0/Microsoft.NET.Sdk.Razor.Compilation.targets",
+        "build/netstandard2.0/Microsoft.NET.Sdk.Razor.DesignTime.targets",
+        "build/netstandard2.0/Microsoft.NET.Sdk.Razor.GenerateAssemblyInfo.targets",
+        "build/netstandard2.0/Microsoft.NET.Sdk.Razor.props",
+        "build/netstandard2.0/Rules/RazorConfiguration.xaml",
+        "build/netstandard2.0/Rules/RazorExtension.xaml",
+        "build/netstandard2.0/Rules/RazorGeneral.xaml",
+        "build/netstandard2.0/Rules/RazorGenerateWithTargetPath.xaml",
+        "build/netstandard2.0/Sdk.Razor.CurrentVersion.props",
+        "build/netstandard2.0/Sdk.Razor.CurrentVersion.targets",
+        "buildMultiTargeting/Microsoft.NET.Sdk.Razor.props",
+        "buildMultiTargeting/Sdk.Razor.CurrentVersion.MultiTargeting.targets",
+        "microsoft.net.sdk.razor.2.2.0.nupkg.sha512",
+        "microsoft.net.sdk.razor.nuspec",
+        "tasks/net46/Microsoft.NET.Sdk.Razor.Tasks.dll",
+        "tasks/net46/Microsoft.NET.Sdk.Razor.Tasks.pdb",
+        "tasks/netstandard2.0/Microsoft.NET.Sdk.Razor.Tasks.dll",
+        "tasks/netstandard2.0/Microsoft.NET.Sdk.Razor.Tasks.pdb"
       ]
     },
     "Microsoft.NETCore.App/2.1.0": {

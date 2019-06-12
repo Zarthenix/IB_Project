@@ -1,0 +1,28 @@
+﻿.sidebar {
+    height: 100%;
+    width: 160px;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px;
+    z-index: 1;
+    background-color: rgb(73, 187, 98);
+    background-color: rgba(73, 187, 98, 0.81);
+     overflow-x: hidden;
+}
+
+.buffer {
+    margin-left: 165px;
+    margin-top: 20px;
+}
+
+.buttonCustom {
+    background-color: #5ee89e !important;
+    margin-bottom: 25px;
+}
+
+#cartBadge {
+    background-color: #ed8d17 !important;
+    font-family: Magneto !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+}

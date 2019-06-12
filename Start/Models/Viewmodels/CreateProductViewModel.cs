@@ -31,7 +31,7 @@ namespace Start.Models.Viewmodels
         [Required(ErrorMessage = "Please upload an image")]
         [Display(Name = "Product image")]
         public IFormFile Image { get; set; }
-        public List<ProductCategory> Categories { get; set; }
+        public List<string> Categories { get; set; }
 
 
         public Product ConvertToProduct()

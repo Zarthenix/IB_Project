@@ -1,22 +1,100 @@
 ﻿@{
+    @model List<CatalogProductViewModel>
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
-@if (User.Identity.IsAuthenticated)
-{
-    if(User.IsInRole("Admin"))
-    {
-        <h2>You are an Admin.</h2>
-    }
-    if(User.IsInRole("Employee"))
-    {
-        <h2>You are an Employee.</h2>
-    }
-    if (User.IsInRole("Customer"))
-    {
-        <h2>You are an Customer.</h2>
-    }
+<div class="container-fluid">
+    <div class="row">
+        <div class="sidebar">
+            <h4>Sort by:</h4>
+            <ul>
+                <li>Name</li>
+                <li>Price</li>
+                <li>Category</li>
+            </ul>
+        </div>
+        <div class="buffer" style="width:100vw">
+            @foreach (CatalogProductViewModel cpvm in Model)
+            {
+                <div class="col-md-2" style="height: 55vh">
+                    <a href="@Url.Action("Details", "Product", new { id = cpvm.ProductId })" style="text-decoration:none">
+                        <div class="panel panel-success" style="height:75%">
+                            <div class="panel-heading" style="height:18%">
+                                   <h3 style="font-size:18px">@cpvm.ProductName</h3>
+                                <div class="right">
+                                    <h3>€@cpvm.ProductPrice</h3>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="height:85%">
+                                <img src="@String.Format("data:image/gif;base64,{0}", cpvm.ProductImg)" class="img-thumbnail center-block" style="height:80%"/>
+                                <h5 class="text-center">@cpvm.ProductCalories kCal</h5>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="col-md-12">
+                        <fieldset>
+                            <button type="button" class="btn btn-primary btn-lg buttonCustom btn-block add-to-cart" onclick="cartHandler(@Newtonsoft.Json.JsonConvert.SerializeObject(cpvm))"><i class="fas fa-cart-plus"></i>  Add To Cart</button>
+                        </fieldset>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $('.add-to-cart').on('click', function () {
+            var cart = $('#shoppingCart');
+            var imgtodrag = $(this).parent().parent().parent().find("img").eq(0);
+            if (imgtodrag) {
+                var imgclone = imgtodrag.clone()
+                    .offset({
+                        top: imgtodrag.offset().top,
+                        left: imgtodrag.offset().left
+                    })
+                    .css({
+                        'opacity': '0.5',
+                        'position': 'absolute',
+                        'height': '150px',
+                        'width': '150px',
+                        'z-index': '100'
+                    })
+                    .appendTo($('body'))
+                    .animate({
+                        'top': cart.offset().top + 10,
+                        'left': cart.offset().left + 10,
+                        'width': 75,
+                        'height': 75
+                    }, 350, 'easeInOutExpo');
+
+                setTimeout(function () {
+                    cart.effect("shake", {
+                        times: 2
+                    }, 200);
+                }, 1000);
+
+                imgclone.animate({
+                    'width': 0,
+                    'height': 0
+                }, function () {
+                    $(this).detach()
+                });
+            }
+        });
+            function cartHandler(x) {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Add", "Cart")',
+                    contentType: 'application/json',
+                    dataType: 'JSON',
+                    data: JSON.stringify(x),
+                    success: function (data) {
+                        $("#shoppingCart span:nth-child(2)").text(`${data}`);
+                    }
+                });
+            }
+    </script>
 }
-
-

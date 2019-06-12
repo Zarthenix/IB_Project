@@ -10,5 +10,6 @@ namespace Start.Contexts.Interfaces
     {
         Product Create(Product product);
         Product GetById(long productId);
+        List<Product> GetAll();
     }
 }

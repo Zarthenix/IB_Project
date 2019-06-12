@@ -9,6 +9,7 @@ namespace Start.Models
 {
     public class CatalogProductViewModel
     {
+        public long ProductId { get; set; }
         [Required]
         [DataType(DataType.Text)]
         [StringLength(255)]
@@ -21,10 +22,21 @@ namespace Start.Models
         [DataType(DataType.Currency)]
         public decimal ProductPrice { get; set; }
         public int ProductCalories { get; set; }
-        public byte[] ProductImg { get; set; }
+        public string ProductImg { get; set; }
         [Required]
         [DataType(DataType.Text)]
-        public List<ProductCategory> ProductCategories { get; set; }
+        public List<string> ProductCategories { get; set; }
 
+
+        public CatalogProductViewModel ConvertToViewModel(Product p)
+        {
+            ProductId = p.ProductId;
+            ProductName = p.ProductName;
+            ProductDescription = p.ProductDescription;
+            ProductPrice = p.ProductPrice;
+            ProductCalories = p.ProductCalories;
+            ProductCategories = p.ProductCategories;
+            return this;
+        }
     }
 }

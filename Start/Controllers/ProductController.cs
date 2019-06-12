@@ -30,7 +30,6 @@ namespace Start.Controllers
 
         
         [Authorize(Roles = "Employee, Admin")]
-        [HttpGet]
         public IActionResult Create()
         {
             return View(new CreateProductViewModel {IsActive = true});
@@ -60,7 +59,7 @@ namespace Start.Controllers
                 }
                 else
                 {
-                    retval = RedirectToAction("Details", "Product", product);
+                    retval = RedirectToAction("Details", "Product", new { id = product.ProductId });
                 }
             }
             return retval;
@@ -68,11 +67,17 @@ namespace Start.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Details(Product product)
+        public IActionResult Details(long id)
         {
+            Product product = productRepository.GetById(id);
+            ProductDetailViewModel pdvm = new ProductDetailViewModel(product);
+            string imgBase64 = Convert.ToBase64String(pdvm.Image);
+            string imgDataURL = string.Format("data:image/png;base64,{0}", imgBase64);
+            ViewBag.ImageData = imgDataURL;
 
-
-            return View();
+            return View(pdvm);
         }
+
+
     }
 }
