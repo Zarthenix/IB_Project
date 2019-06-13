@@ -15,7 +15,7 @@ namespace Start.Controllers
         public IActionResult Index()
         {
             List<CartProduct> products = HttpContext.Session.GetComplexData<List<CartProduct>>("userCart");
-            return PartialView(products);
+            return PartialView("_Cart", products);
         }
 
         [HttpPost]

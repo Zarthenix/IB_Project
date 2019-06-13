@@ -1,4 +1,25 @@
-﻿
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<CartProduct>
+@{
+
+    int x = Model.Count * 20;
+}
+<link rel="stylesheet" href="~/css/custom_css.css">
+
+<div class="container cartStyle">
+    <div class="row">
+        <div class="col-md-2">Image:</div>
+        <div class="col-md-2">Name:</div>
+        <div class="col-md-2">Quantity:</div>
+        <div class="col-md-2">Price:</div>
+    </div>
+
+    @foreach(CartProduct cp in Model)
+    {
+        <div class="row">
+            <img src="@String.Format("data:image/gif;base64,{0}", cp.Img)" id="tinyImg" />
+            <div class="col-md-2">@cp.Name</div>
+            <div class="col-md-2">@cp.Quantity</div>
+            <div class="col-md-2">@(cp.Price * cp.Quantity)</div>
+        </div>
+    }
+</div>foreach

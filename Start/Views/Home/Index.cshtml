@@ -8,13 +8,18 @@
 <div class="container-fluid">
     <div class="row">
         <div class="sidebar">
-            <h4>Sort by:</h4>
-            <ul>
-                <li>Name</li>
-                <li>Price</li>
-                <li>Category</li>
-            </ul>
+            <h4 class="centrate">Sort by:</h4>
+            <h5>Name</h5>
+            <h5>Price</h5>
+            <h5>Category</h5>
+
+            @if (User.IsInRole("Employee") || User.IsInRole("Admin"))
+            {
+                <h4 class="centrate">Manage Products:</h4>
+                @Html.ActionLink("Create Product", "Create", "Product", null, htmlAttributes: new { @class = "btn btn-primary col-md-10 col-md-offset-1" })
+            }
         </div>
+
         <div class="buffer" style="width:100vw">
             @foreach (CatalogProductViewModel cpvm in Model)
             {
@@ -22,13 +27,13 @@
                     <a href="@Url.Action("Details", "Product", new { id = cpvm.ProductId })" style="text-decoration:none">
                         <div class="panel panel-success" style="height:75%">
                             <div class="panel-heading" style="height:18%">
-                                   <h3 style="font-size:18px">@cpvm.ProductName</h3>
+                                <h3 style="font-size:18px">@cpvm.ProductName</h3>
                                 <div class="right">
                                     <h3>€@cpvm.ProductPrice</h3>
                                 </div>
                             </div>
                             <div class="panel-body" style="height:85%">
-                                <img src="@String.Format("data:image/gif;base64,{0}", cpvm.ProductImg)" class="img-thumbnail center-block" style="height:80%"/>
+                                <img src="@String.Format("data:image/gif;base64,{0}", cpvm.ProductImg)" class="img-thumbnail center-block" style="height:80%" />
                                 <h5 class="text-center">@cpvm.ProductCalories kCal</h5>
                             </div>
                         </div>
@@ -74,7 +79,7 @@
                     cart.effect("shake", {
                         times: 2
                     }, 200);
-                }, 1000);
+                }, 500);
 
                 imgclone.animate({
                     'width': 0,

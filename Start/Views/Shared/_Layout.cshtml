@@ -56,16 +56,39 @@
             else
             {
                 <a asp-controller="home" asp-action="Login" class="right">Login</a>
+                <a asp-controller="home" asp-action="Register" class="right">Register</a>
             }
 
-            <a href="@Url.Action("Index", "Cart")" class="right" id="shoppingCart"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart <span class="badge" style="background-color:#ed8d17;font-family: Magneto;font-size: 14px;font-weight: bold;">@x</span></a>
+            <a href="/" onclick="return false;"class="right" id="shoppingCart"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart <span class="badge" style="background-color:#ed8d17;font-family: Magneto;font-size: 14px;font-weight: bold;">@x</span></a>
             <a href="javascript:void(0);" class="icon" onclick="dropDownMenu()">
                 <i class="fa fa-bars"></i>
             </a>
         </div>
-
+        <div id="cartDiv" class="cartWin"></div>
     </header>
     @RenderBody()
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<script>
+    var url = '@Url.Action("Index", "Cart")';
+    var toggle = false;
+
+
+    $('#shoppingCart').on('click', function () {
+        $('#cartDiv').load(url);
+        var bottom = $('header').position.top + $('header').height();
+        $('#cartDiv').css('top', bottom)
+
+        if (toggle == false) {
+            $('#cartDiv').show();
+            toggle = true;
+        }
+        else {
+            $('#cartDiv').hide();
+            toggle = false;
+        }
+      
+})
+</script>

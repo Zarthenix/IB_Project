@@ -70,12 +70,11 @@ namespace Start.Controllers
         public IActionResult Details(long id)
         {
             Product product = productRepository.GetById(id);
-            ProductDetailViewModel pdvm = new ProductDetailViewModel(product);
-            string imgBase64 = Convert.ToBase64String(pdvm.Image);
-            string imgDataURL = string.Format("data:image/png;base64,{0}", imgBase64);
-            ViewBag.ImageData = imgDataURL;
+            product.ProductId = id;
+            CatalogProductViewModel cpvm = new CatalogProductViewModel();
+            cpvm.ConvertToViewModel(product);
 
-            return View(pdvm);
+            return View(cpvm);
         }
 
 

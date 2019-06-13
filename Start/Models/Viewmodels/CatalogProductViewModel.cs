@@ -22,6 +22,7 @@ namespace Start.Models
         [DataType(DataType.Currency)]
         public decimal ProductPrice { get; set; }
         public int ProductCalories { get; set; }
+        [Required]
         public string ProductImg { get; set; }
         [Required]
         [DataType(DataType.Text)]
@@ -36,6 +37,7 @@ namespace Start.Models
             ProductPrice = p.ProductPrice;
             ProductCalories = p.ProductCalories;
             ProductCategories = p.ProductCategories;
+            ProductImg = Convert.ToBase64String(p.ProductImage);
             return this;
         }
     }

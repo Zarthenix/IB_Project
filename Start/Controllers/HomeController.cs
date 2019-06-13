@@ -99,6 +99,11 @@ namespace Start.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             RegisterViewModel rv = new RegisterViewModel();
 
             return View(rv);
@@ -107,6 +112,11 @@ namespace Start.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerView)
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             IActionResult retval = View();
 
             if (ModelState.IsValid)
