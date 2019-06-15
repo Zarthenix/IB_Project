@@ -32,7 +32,7 @@
                                     <h3>€@cpvm.ProductPrice</h3>
                                 </div>
                             </div>
-                            <div class="panel-body" style="height:85%">
+                            <div class="panel-body" style="height:70%">
                                 <img src="@String.Format("data:image/gif;base64,{0}", cpvm.ProductImg)" class="img-thumbnail center-block" style="height:80%" />
                                 <h5 class="text-center">@cpvm.ProductCalories kCal</h5>
                             </div>
@@ -40,7 +40,7 @@
                     </a>
                     <div class="col-md-12">
                         <fieldset>
-                            <button type="button" class="btn btn-primary btn-lg buttonCustom btn-block add-to-cart" onclick="cartHandler(@Newtonsoft.Json.JsonConvert.SerializeObject(cpvm))"><i class="fas fa-cart-plus"></i>  Add To Cart</button>
+                            <button type="button" class="btn btn-primary btn-lg buttonCustom btn-block add-to-cart" style="text-align:center" onclick="cartHandler(@Newtonsoft.Json.JsonConvert.SerializeObject(cpvm))"><i class="fas fa-cart-plus" style="width:15%"></i>  Add To Cart</button>
                         </fieldset>
                     </div>
                 </div>
